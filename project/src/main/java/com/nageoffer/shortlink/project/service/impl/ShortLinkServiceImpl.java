@@ -468,6 +468,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
             addResponseCookieTask.run();
         }
         String remoteAddr = LinkUtil.getActualIp(((HttpServletRequest) request));
+//        String remoteAddr = "202.97.81.46";//这个ip地址为山东省济南市 用作测试高德ip服务
         String os = LinkUtil.getOs(((HttpServletRequest) request));
         String browser = LinkUtil.getBrowser(((HttpServletRequest) request));
         String device = LinkUtil.getDevice(((HttpServletRequest) request));
