@@ -23,6 +23,9 @@ spring:
 short-link:
   domain:
     default: nurl.ink:8001
+  flow-limit:
+    create-shortlink:
+      max-access-count: 20
   stats:
     locale:
       amap-key: 8cc2e72e34495f26d9502f675ae5058c

@@ -21,6 +21,7 @@ import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -33,13 +34,16 @@ import java.util.List;
 @Component
 public class SentinelRuleConfig implements InitializingBean {
 
+    @Value("${short-link.flow-limit.create-shortlink.max-access-count}")
+    private int createShortLinkMaxAccessCount;
+
     @Override
     public void afterPropertiesSet() throws Exception {
         List<FlowRule> rules = new ArrayList<>();
         FlowRule createOrderRule = new FlowRule();
         createOrderRule.setResource("create_short-link");
         createOrderRule.setGrade(RuleConstant.FLOW_GRADE_QPS);
-        createOrderRule.setCount(1);
+        createOrderRule.setCount(createShortLinkMaxAccessCount);
         rules.add(createOrderRule);
         FlowRuleManager.loadRules(rules);
     }
