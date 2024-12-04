@@ -108,7 +108,6 @@ public class ShortLinkStatsSaveConsumer implements StreamListener<String, MapRec
             Map<String, String> producerMap = message.getValue();
             ShortLinkStatsRecordDTO statsRecord = JSON.parseObject(producerMap.get("statsRecord"), ShortLinkStatsRecordDTO.class);
             actualSaveShortLinkStats(statsRecord);
-            stringRedisTemplate.opsForStream().delete(Objects.requireNonNull(stream), id.getValue());
         } catch (Throwable ex) {
             // 某某某情况宕机了
             messageQueueIdempotentHandler.delMessageProcessed(id.toString());
@@ -116,6 +115,7 @@ public class ShortLinkStatsSaveConsumer implements StreamListener<String, MapRec
             throw ex;
         }
         messageQueueIdempotentHandler.setAccomplish(id.toString());
+        stringRedisTemplate.opsForStream().delete(Objects.requireNonNull(stream), id.getValue());
     }
 
     public void actualSaveShortLinkStats(ShortLinkStatsRecordDTO statsRecord) {
