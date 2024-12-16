@@ -55,7 +55,7 @@ mybatis-plus:
 
 
 rocketmq:
-  name-server: 127.0.0.1:5176
+  name-server: common-rocketmq-dev.magestack.cn:9876
   producer:
     group: short-link_project-service_stats-save_pg_HowieNew
     topic: short-link_project-service_topic_HowieNew
