@@ -37,6 +37,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * SpringCloud Gateway Token 拦截器
@@ -68,6 +69,7 @@ public class TokenValidateGatewayFilterFactory extends AbstractGatewayFilterFact
                         httpHeaders.set("userId", userInfoJsonObject.getString("id"));
                         httpHeaders.set("realName", URLEncoder.encode(userInfoJsonObject.getString("realName"), StandardCharsets.UTF_8));
                     });
+                    stringRedisTemplate.expire("short-link:login:" + username,30L, TimeUnit.MINUTES);
                     return chain.filter(exchange.mutate().request(builder.build()).build());
                 }
                 ServerHttpResponse response = exchange.getResponse();
