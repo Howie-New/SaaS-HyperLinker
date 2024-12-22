@@ -31,7 +31,7 @@ short-link:
       amap-key: 8cc2e72e34495f26d9502f675ae5058c
   goto-domain:
     white-list:
-      enable: true
+      enable: false
       names: '拿个offer,知乎,掘金,博客园,B站,github,chatgpt'
       details:
         - nageoffer.com
@@ -46,3 +46,14 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mapper/*.xml
+
+rocketmq:
+  name-server: common-rocketmq-dev.magestack.cn:9876
+  producer:
+    group: short-link_project-service_stats-save_pg_HowieNew
+    topic: short-link_project-service_topic_HowieNew
+    send-message-timeout: 2000
+    retry-times-when-send-failed: 1
+    retry-times-when-send-async-failed: 1
+  consumer:
+    group: short-link_project-service_stats-save_cg_HowieNew
